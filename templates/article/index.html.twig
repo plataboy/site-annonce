@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticleController!
+{% endblock %}
+
+{% block body %}
+
+	<div class="container-fluid">
+		<h1 class="text-center ">Les Annonces disponibles</h1>
+		{% if article_accueil is empty %}
+			<h5 class="text-center text-danger">Revenez plutard pas d'article disponible</h5>
+		{% else %}
+			<div class='row'>
+				{% for articles in article_accueil %}
+					<div class="col-3 ">
+
+						<div class="card " style="width: 18rem;">
+							<h5 class="card-header text-center">
+								<span class="text-muted">{{articles.category}}</span>
+							</h5>
+							<img src="{{vich_uploader_asset(articles, 'imageFile') }}" class=" card-img-top" alt=" {{articles.titre}}">
+
+							<div class="card-body">
+								<h6 class="card-title">
+									<span class="font-weight-bolder">Marque :</span>
+									<span class="text-muted ml-3">{{articles.marque}}</span>
+								</h6>
+								<h6 class="card-title">
+									<span class="font-weight-bolder">Carburant :</span>
+									<span class="text-muted ml-3">{{articles.carburant}}</span>
+								</h6>
+								<h6 class="card-title">
+									<span class="font-weight-bolder">Type :</span>
+									<span class="text-muted ml-3">
+										{{articles.titre}}</span>
+								</h6>
+								<p class="card-text">
+									<br>{{articles.description}}</p>
+							</div>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item ">
+									<span class="font-weight-bolder">Prix :</span>
+									<span class="text-success h5 font-weight-bolder">{{ articles.prix|toEuro}}</span>
+								</li>
+								<li class="list-group-item ">
+									<span class="font-weight-bolder">Ville:</span>
+									<span class="text-success h5 font-weight-bolder">{{ articles.ville ?? 'Toulouse'}}</span>
+								</li>
+								<li class="list-group-item">
+									<span class="font-weight-bolder">Posted :</span>
+									<small class="text-muted">
+										{{articles.createAt | date('d-m-Y') == "now" | date('d-m-Y') ? "Aujourd'hui" : articles.createAt | date('d-m-Y')}}
+										<span class="text-danger ml-4">{{articles.createAt | date('H:i')}}</span>
+									</li>
+								</li>
+							</small>
+						</li>
+					</ul>
+					<div class="card-footer btn btn-dark text-center  ">
+						<a href="#" class="text-info">voir</a>
+
+					</div>
+				</div>
+
+			</div>
+		{% endfor %}
+	{% endif %}
+</div></div>{% endblock %}

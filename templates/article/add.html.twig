@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Ajoutez une Annonce
+{% endblock %}
+
+
+{% block body %}
+	<div class="container col-md-6">
+		<h1 class="text-center">Déposez une annonce</h1>
+		{{ form_start(form) }}
+		{{form_row(form.category)}}
+		{{form_row(form.marque)}}
+		{{form_row(form.carburant)}}
+		{{form_row(form.titre)}}
+		{{form_row(form.description)}}
+		{{form_row(form.imageFile)}}
+		{{form_row(form.prix)}}
+		{{form_row(form.etat)}}
+		<button class="btn btn-primary">Déposez</button>
+
+		{{ form_end(form) }}
+	</div>
+{% endblock %}
