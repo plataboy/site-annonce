@@ -199,6 +199,7 @@ class User implements UserInterface
     {
         if ($this->getCreateAt() === null) {
             $this->setCreateAt(new DateTime());
+            $this->getRoles();
         }
     }
 

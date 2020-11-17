@@ -50,6 +50,8 @@
 									<small class="text-muted">
 										{{articles.createAt | date('d-m-Y') == "now" | date('d-m-Y') ? "Aujourd'hui" : articles.createAt | date('d-m-Y')}}
 										<span class="text-danger ml-4">{{articles.createAt | date('H:i')}}</span>
+										{{articles.user.nom ?? '' }}
+										{{articles.user.prenom ?? 'Inconnu'}}
 									</li>
 								</li>
 							</small>

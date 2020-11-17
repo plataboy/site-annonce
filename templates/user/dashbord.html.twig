@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block title%}Dashbord
+{% endblock %}
+{% block body %}
+	{{ include('/user/layouts/menu.html.twig')}}
+	<div class="container">
+		<h2 class="jumbotron text-center">
+			DASHBORD
+		</h2>
+		<p>{{app.user.nom}}
+			{{app.user.prenom}}</p>
+
+		{% for users_articles in user_article %}
+
+
+			{{dump(users_articles.titre)}}
+
+		{% endfor %}
+
+	</div>
+{% endblock %}
+{% block javascripts %}{% endblock %}
