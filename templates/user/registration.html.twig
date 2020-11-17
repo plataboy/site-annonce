@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	Inscription
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h2 class="text-center">Inscription</h2>
+		<div class="container_center">
+			{{form_start(form_registration)}}
+			{{form_row(form_registration.nom)}}
+			{{form_row(form_registration.prenom)}}
+			{{form_row(form_registration.email)}}
+			{{form_row(form_registration.telephone)}}
+			{{form_row(form_registration.password)}}
+			<button class="btn btn-primary" type="submit">Enregistre</button>
+			{{form_end(form_registration)}}
+		</div>
+	</div>
+{% endblock %}
+{% block javascripts %}{% endblock %}
