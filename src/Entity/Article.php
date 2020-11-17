@@ -82,6 +82,11 @@ class Article
      */
     private $carburant;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="articles")
+     */
+    private $user;
+
 
 
 
@@ -244,6 +249,18 @@ class Article
     public function setCarburant(string $carburant): self
     {
         $this->carburant = $carburant;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

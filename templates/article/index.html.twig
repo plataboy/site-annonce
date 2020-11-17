@@ -12,7 +12,7 @@
 		{% else %}
 			<div class='row'>
 				{% for articles in article_accueil %}
-					<div class="col-3 ">
+					<div class="col-2.5 ">
 
 						<div class="card " style="width: 18rem;">
 							<h5 class="card-header text-center">
@@ -26,16 +26,15 @@
 									<span class="text-muted ml-3">{{articles.marque}}</span>
 								</h6>
 								<h6 class="card-title">
-									<span class="font-weight-bolder">Carburant :</span>
-									<span class="text-muted ml-3">{{articles.carburant}}</span>
-								</h6>
-								<h6 class="card-title">
 									<span class="font-weight-bolder">Type :</span>
 									<span class="text-muted ml-3">
 										{{articles.titre}}</span>
 								</h6>
-								<p class="card-text">
-									<br>{{articles.description}}</p>
+								<h6 class="card-title">
+									<span class="font-weight-bolder">Etat :</span>
+									<span class="text-muted ml-3 badge badge-warning">{{articles.etat}}</span>
+								</h6>
+								{#<p class="card-text">{{articles.description}}</p>#}
 							</div>
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item ">
