@@ -61,7 +61,7 @@ class UserController extends AbstractController
 
     public function userDashbord(UserRepository $userReposi, UserInterface $user)
     {
-        $user_article = $userReposi->findByUser($user);
+        $user_article = $userReposi->findBy(['email' => $user->getUsername()]);
         foreach ($user_article as $users_article) {
             $user_tab = $users_article->getArticles();
             dump($user_tab);
