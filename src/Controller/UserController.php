@@ -46,23 +46,22 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("user/article/show-{id}",name="user_article_show")
+     * @Route("/article/show-{id}",name="user_article_show")
      */
-    public function article_show(UserInterface $user, Article $article, ArticleRepository $articleRepo)
+    public function article_show(UserInterface $user = null, Article $article, ArticleRepository $articleRepo)
     {
-        if ($user !== $article->getUser()) {
+        /*if ($user !== $article->getUser()) {
             $this->addFlash('danger', 'cet article n\'est pas disponible');
             return $this->redirectToRoute('user_dashbord');
-        }
+        }*/
         $user_article_show = $articleRepo->find($article);
-        dump($user_article_show);
-        return $this->render('user/article_show.html.twig', [
+        return $this->render('article/article_show.html.twig', [
             'user_article_show' => $user_article_show
         ]);
     }
 
     /**
-     * @Route("/user/registre" ,name="user_registre")
+     * @Route("/registre" ,name="user_registre")
      */
     public function registre(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {

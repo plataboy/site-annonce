@@ -7,6 +7,9 @@
 
 	<div class="container-fluid">
 		<h1 class="text-center ">Les Annonces disponibles</h1>
+		<hr>
+		<a href="{{path('add_article')}}" class="btn btn-primary">Déposez une annonce</a>
+		<hr>
 		{% if article_accueil is empty %}
 			<h5 class="text-center text-danger">Revenez plutard pas d'article disponible</h5>
 		{% else %}
@@ -43,7 +46,7 @@
 								</li>
 								<li class="list-group-item ">
 									<span class="font-weight-bolder">Ville:</span>
-									<span class="text-success h5 font-weight-bolder">{{ articles.ville ?? 'Toulouse'}}</span>
+									<span class="text-success h5 font-weight-bolder">{{ articles.user.ville ?? 'Toulouse'}}</span>
 								</li>
 								<li class="list-group-item">
 									<span class="font-weight-bolder">Posted :</span>
@@ -61,7 +64,7 @@
 						{{articles.user.nom ?? '' }}
 						{{articles.user.prenom ?? 'Inconnu'}}</small>
 					<div class="card-footer btn btn-dark text-center  ">
-						<a href="#" class="text-info">voir</a>
+						<a href="{{path('user_article_show',{id:articles.id})}}" class="text-info">voir</a>
 
 					</div>
 				</div>

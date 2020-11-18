@@ -19,7 +19,6 @@ class ArticleController extends AbstractController
      */
     public function index(ArticleRepository $ArticleRipo): Response
     {
-
         return $this->render('article/index.html.twig', [
             'article_accueil' => $article =  $ArticleRipo->findAll()
         ]);
@@ -27,8 +26,12 @@ class ArticleController extends AbstractController
     /**
      * @Route("/article/add",name="add_article")
      */
-    public function add(Request $request, EntityManagerInterface $manager, UserInterface $user)
+    public function add(Request $request, EntityManagerInterface $manager, UserInterface $user = null)
     {
+        if (!$user) {
+
+            return $this->redirectToRoute('app_login');
+        }
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
 

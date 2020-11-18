@@ -6,19 +6,29 @@
 	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item active">
-				<a class="nav-link" href="#">Accueil
+				<a class="nav-link" href="{{path('article_accueil')}}">Accueil
 					<span class="sr-only">(current)</span>
 				</a>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="{{path('user_dashbord')}}">Dashbord</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link " href="{{path('user_info')}}">information</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link " href="{{path('app_logout')}}">Deconnection</a>
-			</li>
+			{% if not app.user %}
+				<li class="nav-item">
+					<a class="nav-link" href="{{path('app_login')}}">login</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link " href="{{path('user_registre')}}">s'inscrire</a>
+				</li>
+			{% else %}
+				<li class="nav-item">
+					<a class="nav-link" href="{{path('user_dashbord')}}">Dashbord</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link " href="{{path('user_info')}}">information</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link " href="{{path('app_logout')}}">Deconnection</a>
+
+				</li>
+			{% endif %}
 		</ul>
 	</div>
 </nav>
