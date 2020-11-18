@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class ArticleController extends AbstractController
 {
@@ -26,13 +27,14 @@ class ArticleController extends AbstractController
     /**
      * @Route("/article/add",name="add_article")
      */
-    public function add(Request $request, EntityManagerInterface $manager)
+    public function add(Request $request, EntityManagerInterface $manager, UserInterface $user)
     {
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $article->setUser($user);
             $manager->persist($article);
             $manager->flush();
 

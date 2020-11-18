@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+{% block title %}Information
+{% endblock %}
+{% block body %}
+
+	{{ include('/user/layouts/menu.html.twig')}}
+	<div class="container bg-dark mt-4 mb-4  rounded text-white">
+		<h2 class="text-center ">Information</h2>
+		<div class="container_center">
+			{{form_start(form_info)}}
+			{{form_row(form_info.nom)}}
+			{{form_row(form_info.prenom)}}
+			{{form_row(form_info.email)}}
+			{{form_row(form_info.telephone)}}
+			{{form_row(form_info.naissance)}}
+			{{form_row(form_info.password)}}
+			<button class="btn btn-primary mb-4" type="submit">Modifier</button>
+			{{form_end(form_info)}}
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}{% endblock %}
