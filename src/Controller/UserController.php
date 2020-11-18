@@ -34,17 +34,30 @@ class UserController extends AbstractController
         }
         $form_edit = $this->createform(ArticleType::class, $article);
         //dump($form_edit);exit();
-
         $form_edit->handleRequest($request);
         if ($form_edit->isSubmitted() && $form_edit->isValid()) {
-
             $manager->flush();
             $this->addFlash('success', "Votre article a été modifé avec success");
             return $this->redirectToRoute('user_dashbord');
         }
-
         return $this->render('user/edit.html.twig', [
             'form_article' => $form_edit->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("user/article/show-{id}",name="user_article_show")
+     */
+    public function article_show(UserInterface $user, Article $article, ArticleRepository $articleRepo)
+    {
+        if ($user !== $article->getUser()) {
+            $this->addFlash('danger', 'cet article n\'est pas disponible');
+            return $this->redirectToRoute('user_dashbord');
+        }
+        $user_article_show = $articleRepo->find($article);
+        dump($user_article_show);
+        return $this->render('user/article_show.html.twig', [
+            'user_article_show' => $user_article_show
         ]);
     }
 
@@ -95,7 +108,7 @@ class UserController extends AbstractController
 
         $form_info = $this->createForm(UserType::class, $userInterface, [])
             ->add('naissance', DateType::class, ['format' => 'dd-MM-yyyy']);
-        dump($useri[0]->getPassword());
+
         $form_info->handleRequest($request);
         if ($form_info->isSubmitted() && $form_info->isValid()) {
             $useri[0]->setPassword($encoder->encodePassword($userInterface, $userInterface->getPassword()));

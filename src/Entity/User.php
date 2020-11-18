@@ -67,6 +67,11 @@ class User implements UserInterface
      */
     private $roles = ['ROLE_USER'];
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $ville;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -249,5 +254,17 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getVille(): ?string
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?string $ville): self
+    {
+        $this->ville = $ville;
+
+        return $this;
     }
 }

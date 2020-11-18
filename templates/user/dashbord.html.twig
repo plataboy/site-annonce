@@ -26,7 +26,7 @@
 						<div class="col-4 p-1">
 							<img src="{{vich_uploader_asset(users_articles, 'imageFile') }}" class="img-dashbord-user" alt=" {{users_articles.titre}}"/>
 							<p class="text-center">
-								<a href="#">Voir</a>
+								<a href="{{path('user_article_show',{id:users_articles.id})}}">Voir</a>
 							</p>
 						</div>
 						<div class="col-8">
@@ -36,6 +36,7 @@
 							<p>Prix :
 								<span class="text-warning h6">{{users_articles.prix |  toEuro}}</sapn>
 							</p>
+
 							<p>
 								<small>Posted :
 									{{users_articles.createAt | date('d-m-Y') == "now" | date('d-m-Y') ? "Aujourd'hui" : users_articles.createAt | date('d-m-Y')}}

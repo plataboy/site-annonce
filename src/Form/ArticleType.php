@@ -48,7 +48,7 @@ class ArticleType extends AbstractType
                 'allow_delete' => true,
                 'delete_label' => '...',
                 'image_uri' => true,
-                'imagine_pattern' => 'my_thumbnail',
+                #'imagine_pattern' => 'my_thumbnail',
                 'asset_helper' => true,
             ])
             ->add('prix')

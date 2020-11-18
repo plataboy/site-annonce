@@ -2,6 +2,7 @@
 {% block title %}Edition d'article
 {% endblock %}
 {% block body %}
+	{{ include('/user/layouts/menu.html.twig')}}
 	<div class="container col-md-6">
 		<h1 class="text-center">Article en edition</h1>
 		{{ form_start(form_article) }}
