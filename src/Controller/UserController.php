@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Entity\Article;
+use App\Form\ArticleType;
 use App\Repository\UserRepository;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,15 +23,28 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/article/user", name="user_article")
+     * @Route("/user/article/edit-{id}", name="user_article_edit")
      */
-    public function index(ArticleRepository $repos): Response
+    public function edit(UserInterface $user, Article $article,  Request $request, EntityManagerInterface $manager): Response
     {
 
+        if ($user !== $article->getUser()) {
+            $this->addFlash('danger', "Article inconnu");
+            return $this->redirectToRoute('user_dashbord');
+        }
+        $form_edit = $this->createform(ArticleType::class, $article);
+        //dump($form_edit);exit();
 
+        $form_edit->handleRequest($request);
+        if ($form_edit->isSubmitted() && $form_edit->isValid()) {
 
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
+            $manager->flush();
+            $this->addFlash('success', "Votre article a été modifé avec success");
+            return $this->redirectToRoute('user_dashbord');
+        }
+
+        return $this->render('user/edit.html.twig', [
+            'form_article' => $form_edit->createView(),
         ]);
     }
 

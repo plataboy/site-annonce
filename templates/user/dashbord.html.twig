@@ -11,8 +11,13 @@
 			<p>{{app.user.nom}}
 				{{app.user.prenom}}</p>
 		</div>
-
-
+		{% for label, messages in app.flashes %}
+			{% for message in messages %}
+				<div class="alert alert-{{label}} col-6 text-center">
+					{{message}}
+				</div>
+			{% endfor %}
+		{% endfor %}
 		{% for users_articles in user_article %}
 
 			<div class="row">
@@ -38,8 +43,8 @@
 								</small>
 							</p>
 							<p>
-								<button class="btn btn-info">Edite</button>
-								<button class="btn btn-danger ml-4">Delete</button>
+								<a class="btn btn-info" href="{{path('user_article_edit',{id:users_articles.id})}}">Edite</a>
+								<a class="btn btn-danger ml-4">Delete</a>
 							</p>
 						</div>
 					</div>

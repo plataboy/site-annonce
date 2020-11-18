@@ -1,12 +1,9 @@
 {% extends "base.html.twig" %}
-
-{% block title %}Ajoutez une Annonce
+{% block title %}Edition d'article
 {% endblock %}
-
-
 {% block body %}
 	<div class="container col-md-6">
-		<h1 class="text-center">Déposez une annonce</h1>
+		<h1 class="text-center">Article en edition</h1>
 		{{ form_start(form_article) }}
 		{{form_row(form_article.category)}}
 		{{form_row(form_article.marque)}}
@@ -16,8 +13,9 @@
 		{{form_row(form_article.imageFile)}}
 		{{form_row(form_article.prix)}}
 		{{form_row(form_article.etat)}}
-		<button class="btn btn-primary">Déposez</button>
+		<button class="btn btn-warning">Editer</button>
 
 		{{ form_end(form_article) }}
 	</div>
 {% endblock %}
+{% block javascripts %}{% endblock %}
