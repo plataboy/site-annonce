@@ -22,3 +22,11 @@
 		{{ form_end(form_article) }}
 	</div>
 {% endblock %}
+{% block javascripts %}
+	<script>
+		$(".custom-file #article_imageFile_file").change(function () {
+var file = $("#article_imageFile_file").val();
+$(".custom-file-label").html(file);
+})
+	</script>
+{% endblock %}

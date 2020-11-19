@@ -28,6 +28,11 @@
 							<span class="font-weight-bolder">Etat :</span>
 							<span class="text-muted ml-3 badge badge-warning">{{user_article_show.etat}}</span>
 						</h6>
+						<p class="card-title">
+							<span class="font-weight-bolder">Description :
+							</span><br>
+							<span class="text-muted ">{{user_article_show.description}}</span>
+						</p>
 						{#<p class="card-text">{{user_article_show.description}}</p>#}
 					</div>
 					<ul class="list-group list-group-flush">
@@ -62,7 +67,8 @@
 
 
 	</div>
-	<div class="col-4  badge-dark rounded " style='height:15%'>
+	<button class="btn btn-dark text-white" id="contact_button" style='height:5%'>Contact</button>
+	<div style="display:none" id="contact" class="col-4  badge-dark rounded " style='height:15%'>
 		<h4>Contact</h4>
 		<p>
 			<span class="badge badge-warning text-muted ">{{user_article_show.user.prenom ?? 'Inconnu'}}</sapn>
@@ -75,4 +81,13 @@
 			<span class="badge badge-warning text-muted p-2">{{user_article_show.user.email}}</span>
 		</p>
 	</div>
-</div></div>{% endblock %}
+</div></div>{% endblock %}{% block javascripts %}<script>
+
+$(document).ready(function () {
+
+$("#contact_button").click(function () {
+$("#contact").css("height", "15%").show();
+$("#contact_button").hide();
+
+});
+});</script>{% endblock %}

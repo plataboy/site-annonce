@@ -12,7 +12,17 @@
 			<p>{{app.user.nom}}
 				{{app.user.prenom}}</p>
 		</div>
-		<a href="{{path('add_article')}}" class="btn btn-primary">Déposez une annonce</a>
+		<div class="row">
+			<div class="col-6">
+				<a href="{{path('add_article')}}" class="btn btn-primary">Déposez une annonce</a>
+			</div>
+			<div class="col-6">
+				<h6>{{ user_article | length > 1 ? "Articles Disponibles" : "Article Disponible" }}
+					:
+					<span class="badge badge-danger p-2">{{user_article | length == 0 ? 0 : user_article | length }}</span>
+				</h6>
+			</div>
+		</div>
 		<hr>
 		{% for label, messages in app.flashes %}
 			{% for message in messages %}

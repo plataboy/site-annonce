@@ -1,14 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ArticleController!
+{% block title %}Accueil
 {% endblock %}
 
 {% block body %}
 	{{ include('/user/layouts/menu.html.twig')}}
 	<div class="container-fluid">
-		<h1 class="text-center ">Les Annonces disponibles</h1>
+		<h1 class="text-center text-primary">Les Annonces disponibles</h1>
 		<hr>
-		<a href="{{path('add_article')}}" class="btn btn-primary">Déposez une annonce</a>
+		<div class="row">
+			<div class="col-6">
+				<a href="{{path('add_article')}}" class="btn btn-primary">Déposez une annonce</a>
+			</div>
+			<div class="col-6">
+				<h6>{{ article_accueil | length > 1 ? "Articles Disponibles" : "Article Disponible" }}
+					:
+					<span class="badge badge-danger p-2">
+						{{article_accueil | length == 0 ?  0 : article_accueil | length }}</span>
+				</h6>
+			</div>
+		</div>
+
+
 		<hr>
 		{% if article_accueil is empty %}
 			<h5 class="text-center text-danger">Revenez plutard pas d'article disponible</h5>
@@ -21,7 +34,7 @@
 							<h5 class="card-header text-center">
 								<span class="text-muted">{{articles.category}}</span>
 							</h5>
-							<img src="{{vich_uploader_asset(articles, 'imageFile') }}" class=" card-img-top" alt=" {{articles.titre}}">
+							<img src="{{vich_uploader_asset(articles, 'imageFile') }}" class=" card-img-top rounded shadow" alt=" {{articles.titre}}">
 
 							<div class="card-body">
 								<h6 class="card-title">
@@ -29,7 +42,7 @@
 									<span class="text-muted ml-3">{{articles.marque}}</span>
 								</h6>
 								<h6 class="card-title">
-									<span class="font-weight-bolder">Type :</span>
+									<span class="font-weight-bolder">Titre :</span>
 									<span class="text-muted ml-3">
 										{{articles.titre}}</span>
 								</h6>
