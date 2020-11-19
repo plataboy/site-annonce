@@ -55,7 +55,7 @@
 				{{user_article_show.user.nom ?? '' }}
 				{{user_article_show.user.prenom ?? 'Inconnu'}}</small>
 			<div class="card-footer btn btn-dark text-center  ">
-				<a href="{{path('user_dashbord')}}" class="text-info ">Back</a>
+				<a href="{{ app.user ? path('user_dashbord') : path('article_accueil')}}" class="text-info ">Back</a>
 
 			</div>
 		</div>
