@@ -81,13 +81,4 @@
 			<span class="badge badge-warning text-muted p-2">{{user_article_show.user.email}}</span>
 		</p>
 	</div>
-</div></div>{% endblock %}{% block javascripts %}<script>
-
-$(document).ready(function () {
-
-$("#contact_button").click(function () {
-$("#contact").css("height", "15%").show();
-$("#contact_button").hide();
-
-});
-});</script>{% endblock %}
+</div></div>{% endblock %}{% block javascripts %}{{ encore_entry_script_tags('article_show') }}{% endblock %}
