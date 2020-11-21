@@ -20,11 +20,11 @@ class ArticleController extends AbstractController
     public function index(ArticleRepository $ArticleRipo): Response
     {
         return $this->render('article/index.html.twig', [
-            'article_accueil' => $article =  $ArticleRipo->findAll()
+            'article_accueil' => $article =  $ArticleRipo->findArticleNotDelete()
         ]);
     }
     /**
-     * @Route("/article/add",name="add_article")
+     * @Route("/user/article/add",name="add_article")
      */
     public function add(Request $request, EntityManagerInterface $manager, UserInterface $user = null)
     {

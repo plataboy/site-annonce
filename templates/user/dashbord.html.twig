@@ -35,7 +35,7 @@
 			<h2 class="text-center">Vous n'avez pas d'article
 			</h2>
 		{% endif %}
-		{% for users_articles in user_article %}
+		{% for users_articles in user_article | reverse %}
 
 			<div class="row">
 				<div class="col-6">
@@ -60,10 +60,14 @@
 									<span class="text-danger ml-4">{{users_articles.createAt | date('H:i')}}</span>
 								</small>
 							</p>
-							<p>
+							<div class="d-flex">
 								<a class="btn btn-info" href="{{path('user_article_edit',{id:users_articles.id})}}">Edite</a>
-								<a class="btn btn-danger ml-4">Delete</a>
-							</p>
+								<form method="post" action="{{path('article_delete',{id:users_articles.id})}}">
+									<input type="hidden" name="_method" value="DELETE">
+									<input type="hidden" name='token' value="{{csrf_token('article_delete')}}">
+									<button class="btn btn-danger ml-4">Delete</button>
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>

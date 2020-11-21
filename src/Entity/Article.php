@@ -87,6 +87,11 @@ class Article
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $userArchiveId;
+
 
 
 
@@ -161,7 +166,7 @@ class Article
         if (null !== $imageFile) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
+            $this->setUpdateAt(new \DateTimeImmutable());
         }
     }
 
@@ -261,6 +266,18 @@ class Article
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getUserArchiveId(): ?int
+    {
+        return $this->userArchiveId;
+    }
+
+    public function setUserArchiveId(?int $userArchiveId): self
+    {
+        $this->userArchiveId = $userArchiveId;
 
         return $this;
     }

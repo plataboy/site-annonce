@@ -61,7 +61,23 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/registre" ,name="user_registre")
+     * @Route("/user/article/delete-{id}" , name="article_delete" ,methods="DELETE")
+     */
+    public function article_delete(UserInterface $userInterface, UserRepository $user, Article $article, EntityManagerInterface $manager, Request $request)
+    {
+
+        if ($this->isCsrfTokenValid('article_delete', $request->request->get('token'))) {
+
+            $user->find($userInterface)->removeArticle($article);
+            $article->setUserArchiveId($user->find($userInterface)->getId());
+            $manager->flush();
+            $this->addFlash("danger", "Votre article a été supprimé avec succès");
+            return $this->redirectToRoute('user_dashbord');
+        }
+    }
+
+    /**
+     * @Route("/registre" ,name="user_registre" ,methods="POST")
      */
     public function registre(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
