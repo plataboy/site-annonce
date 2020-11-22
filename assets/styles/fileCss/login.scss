@@ -1,12 +1,16 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
 .container_custom{
     background-color: #66d9ff;
      padding-bottom: 100px;
      border-radius: 5%;
      margin-top:50px;
-     width: 400px;
-     margin-left:45%;
+     width: 50%;
+     margin-left:25%;
      padding: 40px;
+     .link_pass_oublie{
+         margin-left: 100px;
+     
 
-
-
+}
 }

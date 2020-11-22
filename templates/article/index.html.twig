@@ -39,12 +39,13 @@
 							<div class="card-body">
 								<h6 class="card-title">
 									<span class="font-weight-bolder">Marque :</span>
-									<span class="text-muted ml-3">{{articles.marque}}</span>
+									<span class="text-muted ml-3">
+										{{articles.marque | subCaractere(0,19) }}</span>
 								</h6>
 								<h6 class="card-title">
 									<span class="font-weight-bolder">Titre :</span>
 									<span class="text-muted ml-3">
-										{{articles.titre}}</span>
+										{{articles.titre | subCaractere(0,19)}}</span>
 								</h6>
 								<h6 class="card-title">
 									<span class="font-weight-bolder">Etat :</span>

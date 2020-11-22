@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Entity\Article;
 use App\Form\ArticleType;
+use App\Controller\SendingMail;
 use App\Repository\UserRepository;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,6 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Validator\DoctrineInitializer;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
@@ -131,6 +133,47 @@ class UserController extends AbstractController
         }
         return $this->render('user/information_perso.html.twig', [
             'form_info' => $form_info->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/pass/forgotten" , name="pass_oublie")
+     */
+    public function pass_oublie(MailerInterface $mailer, SendingMail $mail, UserInterface $userInterface = null,  Request $request, UserRepository $userRepo)
+    {
+        if ($userInterface) {
+            return $this->redirectToRoute('user_dashbord');
+        }
+        $checkEmail = $request->request->get('email');
+        if ($this->isCsrfTokenValid('mot_pass_oublie', $request->request->get('token'))) {
+            if ($userRepo->findBy(['email' => $checkEmail])) {
+                $mail->send_mail($mailer, $checkEmail);
+                $this->addFlash("success", "Votre message de reinitialisation envoyé  !");
+            } else {
+                $this->addFlash("danger", "Cet Email n'existe pas !");
+            }
+        }
+
+        return $this->render("user/mot_pass_oublie.html.twig", []);
+    }
+
+
+    /**
+     * @Route("user/dashbord/recherche", name="recherche_dashbord")
+     */
+
+    public function recherche(ArticleRepository $articleRepository, UserInterface $user, Request $request)
+    {
+
+        if ($this->isCsrfTokenValid('search_article', $request->request->get('token'))) {
+
+            $user_tab = $articleRepository->recherche_article($user, $request->request->get('recherche'));
+            $s = count($user_tab) > 1 && count($user_tab) > 0 ? 's' : '';
+            $this->addFlash(count($user_tab) > 0 ? 'info' : 'danger', count($user_tab) . " article$s trouvé$s ");
+        }
+
+        return $this->render("user/dashbord.html.twig", [
+            'user_article' => $user_tab ?? null
         ]);
     }
 }

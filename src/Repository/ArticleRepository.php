@@ -2,9 +2,13 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\Article;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+
 
 /**
  * @method Article|null find($id, $lockMode = null, $lockVersion = null)
@@ -28,6 +32,21 @@ class ArticleRepository extends ServiceEntityRepository
             ->andWhere('a.user is not null')
 
             ->orderBy('a.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+    /**
+     * @return User[] Returns an array of User objects
+     */
+
+    public function recherche_article(UserInterface $user, $value)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.user= :val')
+            ->setParameter('val', $user)
+            ->andWhere('u.titre LIKE :article')
+            ->setParameter('article', '%' . $value . '%')
+            ->orderBy('u.id', 'ASC')
             ->getQuery()
             ->getResult();
     }

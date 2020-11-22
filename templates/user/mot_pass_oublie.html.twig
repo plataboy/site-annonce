@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Mot de pass oublié
+{% endblock %}
+{% block body %}
+	{{ include('/user/layouts/menu.html.twig')}}
+	<div class="container text-center" style="width:50%">
+		<h6 class="my-5">
+			Entrez votre email pour reinitialiser votre mot de passe</h6>
+		{% for label, messages in app.flashes %}
+			{% for message in messages %}
+				<div class="alert alert-{{label}} ">
+					{{message}}
+				</div>
+			{% endfor %}
+		{% endfor %}
+		<form method="post" action="{{path('pass_oublie')}}">
+			<div class="form-group ">
+				<input class="form-control" type="email" name="email" required>
+				<input type="hidden" name="token" value="{{csrf_token('mot_pass_oublie')}}">
+			</div>
+			<button class="btn btn-danger" type="submit">Envoyer</button>
+		</form>
+	</div>
+{% endblock %}
+{% block javascripts %}{% endblock %}

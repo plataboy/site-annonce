@@ -23,6 +23,18 @@
 				</h6>
 			</div>
 		</div>
+		<div class="div-form-recherche-dashbord">
+			<form method="post" action="{{path('recherche_dashbord')}}">
+				<div class="form-group d-flex mt-5 ">
+					<input class="form-control mr-3" type="search" name="recherche" placeholder="Recherche un bien">
+					<input type="hidden" name="token" value="{{csrf_token('search_article')}}">
+					<button class="btn btn-danger">Recherche</button>
+				</div>
+
+			</form>
+
+
+		</div>
 		<hr>
 		{% for label, messages in app.flashes %}
 			{% for message in messages %}
@@ -47,8 +59,8 @@
 							</p>
 						</div>
 						<div class="col-8">
-							<p>Marque :
-								<span class="text-warning h6">{{users_articles.titre}}</sapn>
+							<p>Titre :
+								<span class="text-warning h6">{{users_articles.titre | subCaractere(0,25)}}</sapn>
 							</p>
 							<p>Prix :
 								<span class="text-warning h6">{{users_articles.prix |  toEuro}}</sapn>
