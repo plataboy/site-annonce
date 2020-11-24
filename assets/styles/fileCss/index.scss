@@ -12,4 +12,13 @@
     width: 15em;
     height: 25em;
     margin-bottom: 28px;
+   
+    &:hover{
+        transform: scale(1.02,1.02) ;
+        transition:0.3s;
+        z-index: 1;
+        
+
+        
+    }
 }
