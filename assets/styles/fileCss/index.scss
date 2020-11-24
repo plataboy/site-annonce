@@ -11,14 +11,15 @@
     margin-top: 10px;
     width: 15em;
     height: 25em;
-    margin-bottom: 28px;
-   
+    margin-bottom: 39px;
+    
     &:hover{
         transform: scale(1.02,1.02) ;
         transition:0.3s;
         z-index: 1;
-        
-
-        
     }
+}
+.span-i{
+    margin-left: 50px;
+    font-size: 15px;
 }

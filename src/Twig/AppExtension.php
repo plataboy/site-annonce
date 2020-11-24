@@ -37,6 +37,6 @@ class AppExtension extends AbstractExtension
 
     public function toEuro($value)
     {
-        return number_format($value, 2, ',', ' ') . ' €';
+        return number_format($value, 0, ',', ' ') . ' €';
     }
 }

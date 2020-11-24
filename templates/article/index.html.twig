@@ -5,7 +5,7 @@
 
 {% block body %}
 	{{ include('/user/layouts/menu.html.twig')}}
-	<div class="container-fluid">
+	<div class="container">
 		<h1 class="text-center text-primary">Les Annonces disponibles</h1>
 		<hr>
 		<div class="row">
@@ -28,40 +28,46 @@
 		{% else %}
 			<div class='row'>
 				{% for articles in article_accueil %}
-					<div class="col-2 ">
+					<div class="col-3 ">
 
 						<div class="card " id="card-article-accueil">
+							<span class="text-muted badge badge-warning">{{articles.etat}}</span>
 							<h5 class="card-header text-center">
 								<span class="text-muted">{{articles.category}}</span>
+								<span class="span-i">
+									<a href="#">
+										<i class="fas fa-heart"></i>
+									</a>
+								</span>
 							</h5>
 							<img src="{{vich_uploader_asset(articles, 'imageFile') }}" class=" card-img-top rounded shadow" alt=" {{articles.titre}}">
 
 							<div
 								class="card-body">
 								{# <p class="card-title">
-																																																																																									<span class="font-weight-bolder">Marque :</span>
-																																																																																									<span class="text-muted ml-3">
-																																																																																										{{articles.marque | subCaractere(0,19) }}</span>
-																																																																																								</p> #}
+																																																																																																																																																																																																								<span class="font-weight-bolder">Marque :</span>
+																																																																																																																																																																																																								<span class="text-muted ml-3">
+																																																																																																																																																																																																								{{articles.marque | subCaractere(0,19) }}</span>
+																																																																																																																																																																																																								</p> #}
 								<p class="card-title">
 									<span class="font-weight-bolder">Titre :</span>
-									<span class="text-muted ml-3">
+									<span class="text-muted ">
 										{{articles.titre | subCaractere(0,19)}}</span>
 								</p>
-								<p class="card-title">
-									<span class="font-weight-bolder">Etat :</span>
-									<span class="text-muted ml-3 badge badge-warning">{{articles.etat}}</span>
-								</p>
+								{# <p class="card-title ">
+																																																																																																																																																	<span class="font-weight-bolder">Etat :</span>
+																																																																																																																																																	<span class="text-muted ml-3 badge badge-warning">{{articles.etat}}</span>
+																																																																																																																																																</p> #}
 								{#<p class="card-text">{{articles.description}}</p>#}
 							</div>
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item ">
 									<span class="font-weight-bolder">Prix :</span>
-									<span class="text-success h5 font-weight-bolder">{{ articles.prix|toEuro}}</span>
+									<span class="text-success h6 font-weight-bolder">{{ articles.prix|toEuro}}</span>
 								</li>
 								<li class="list-group-item ">
 									<span class="font-weight-bolder">Ville:</span>
-									<span class="text-success h5 font-weight-bolder">{{ articles.user.ville ?? 'Toulouse'}}</span>
+									<span class="text-success h6 font-weight-bolder">{{ articles.user.ville ?? 'Toulouse'}}</span>
 								</li>
 								<li class="list-group-item">
 									<span class="font-weight-bolder">Posted :</span>
@@ -75,9 +81,9 @@
 						</li>
 					</ul>
 					{# <small>
-																																									by :
-																																									{{articles.user.nom ?? '' }}
-																																									{{articles.user.prenom ?? 'Inconnu'}}</small> #}
+																																																																																																																																																																											by :
+																																																																																																																																																																											{{articles.user.nom ?? '' }}
+																																																																																																																																																																											{{articles.user.prenom ?? 'Inconnu'}}</small> #}
 					<div class="btn btn-dark text-center">
 						<a href="{{path('user_article_show',{id:articles.id})}}" class="text-info">voir</a>
 
