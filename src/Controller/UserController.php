@@ -7,6 +7,7 @@ use App\Form\UserType;
 use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Controller\SendingMail;
+use App\Entity\ResetPassword;
 use App\Repository\UserRepository;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,6 +22,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\HelperFunctions\Functions;
+use App\Repository\ResetPasswordRepository;
 
 class UserController extends AbstractController
 {
@@ -135,29 +138,6 @@ class UserController extends AbstractController
             'form_info' => $form_info->createView()
         ]);
     }
-
-    /**
-     * @Route("/pass/forgotten" , name="pass_oublie")
-     */
-    public function pass_oublie(MailerInterface $mailer, SendingMail $mail, UserInterface $userInterface = null,  Request $request, UserRepository $userRepo)
-    {
-        if ($userInterface) {
-            return $this->redirectToRoute('user_dashbord');
-        }
-        $checkEmail = $request->request->get('email');
-        if ($this->isCsrfTokenValid('mot_pass_oublie', $request->request->get('token'))) {
-            if ($userRepo->findBy(['email' => $checkEmail])) {
-                $mail->send_mail($mailer, $checkEmail);
-                $this->addFlash("success", "Votre message de reinitialisation envoyé  !");
-            } else {
-                $this->addFlash("danger", "Cet Email n'existe pas !");
-            }
-        }
-
-        return $this->render("user/mot_pass_oublie.html.twig", []);
-    }
-
-
     /**
      * @Route("user/dashbord/recherche", name="recherche_dashbord")
      */

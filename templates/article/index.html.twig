@@ -13,11 +13,11 @@
 				<a href="{{path('add_article')}}" class="btn btn-primary">Déposez une annonce</a>
 			</div>
 			<div class="col-6">
-				<h6>{{ article_accueil | length > 1 ? "Articles Disponibles" : "Article Disponible" }}
+				<p>{{ article_accueil | length > 1 ? "Articles Disponibles" : "Article Disponible" }}
 					:
 					<span class="badge badge-danger p-2">
 						{{article_accueil | length == 0 ?  0 : article_accueil | length }}</span>
-				</h6>
+				</p>
 			</div>
 		</div>
 
@@ -28,29 +28,30 @@
 		{% else %}
 			<div class='row'>
 				{% for articles in article_accueil %}
-					<div class="col-3 ">
+					<div class="col-2 ">
 
-						<div class="card " style="width: 18rem;">
+						<div class="card " id="card-article-accueil">
 							<h5 class="card-header text-center">
 								<span class="text-muted">{{articles.category}}</span>
 							</h5>
 							<img src="{{vich_uploader_asset(articles, 'imageFile') }}" class=" card-img-top rounded shadow" alt=" {{articles.titre}}">
 
-							<div class="card-body">
-								<h6 class="card-title">
-									<span class="font-weight-bolder">Marque :</span>
-									<span class="text-muted ml-3">
-										{{articles.marque | subCaractere(0,19) }}</span>
-								</h6>
-								<h6 class="card-title">
+							<div
+								class="card-body">
+								{# <p class="card-title">
+																																																																																									<span class="font-weight-bolder">Marque :</span>
+																																																																																									<span class="text-muted ml-3">
+																																																																																										{{articles.marque | subCaractere(0,19) }}</span>
+																																																																																								</p> #}
+								<p class="card-title">
 									<span class="font-weight-bolder">Titre :</span>
 									<span class="text-muted ml-3">
 										{{articles.titre | subCaractere(0,19)}}</span>
-								</h6>
-								<h6 class="card-title">
+								</p>
+								<p class="card-title">
 									<span class="font-weight-bolder">Etat :</span>
 									<span class="text-muted ml-3 badge badge-warning">{{articles.etat}}</span>
-								</h6>
+								</p>
 								{#<p class="card-text">{{articles.description}}</p>#}
 							</div>
 							<ul class="list-group list-group-flush">
@@ -73,11 +74,11 @@
 							</small>
 						</li>
 					</ul>
-					<small>
-						by :
-						{{articles.user.nom ?? '' }}
-						{{articles.user.prenom ?? 'Inconnu'}}</small>
-					<div class="card-footer btn btn-dark text-center  ">
+					{# <small>
+																																									by :
+																																									{{articles.user.nom ?? '' }}
+																																									{{articles.user.prenom ?? 'Inconnu'}}</small> #}
+					<div class="btn btn-dark text-center">
 						<a href="{{path('user_article_show',{id:articles.id})}}" class="text-info">voir</a>
 
 					</div>

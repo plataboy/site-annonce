@@ -2,11 +2,14 @@
 @import "node_modules/bootstrap/scss/bootstrap";
 .card-img-top{
 
-    height: 180px;
-    width: 286px;
+    height: 150px;
+    width:240px;
 }
 
-.card{
+#card-article-accueil{
 
     margin-top: 10px;
+    width: 15em;
+    height: 25em;
+    margin-bottom: 28px;
 }
