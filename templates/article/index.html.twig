@@ -35,8 +35,13 @@
 							<h5 class="card-header text-center">
 								<span class="text-muted">{{articles.category}}</span>
 								<span class="span-i">
-									<a href="#">
-										<i class="fas fa-heart"></i>
+
+									<a href="{{path('ajout_favoris',{id:articles.id})}}" class="js-favoris">
+										{% if app.user and articles.in_favoris(app.user) %}
+											<i class="fas fa-heart" id="coeur_ajoute"></i>
+										{% else %}
+											<i class="far fa-heart"></i>
+										{% endif %}
 									</a>
 								</span>
 							</h5>
@@ -45,19 +50,19 @@
 							<div
 								class="card-body">
 								{# <p class="card-title">
-																																																																																																																																																																																																								<span class="font-weight-bolder">Marque :</span>
-																																																																																																																																																																																																								<span class="text-muted ml-3">
-																																																																																																																																																																																																								{{articles.marque | subCaractere(0,19) }}</span>
-																																																																																																																																																																																																								</p> #}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																<span class="font-weight-bolder">Marque :</span>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																<span class="text-muted ml-3">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																{{articles.marque | subCaractere(0,19) }}</span>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																</p> #}
 								<p class="card-title">
 									<span class="font-weight-bolder">Titre :</span>
 									<span class="text-muted ">
 										{{articles.titre | subCaractere(0,19)}}</span>
 								</p>
 								{# <p class="card-title ">
-																																																																																																																																																	<span class="font-weight-bolder">Etat :</span>
-																																																																																																																																																	<span class="text-muted ml-3 badge badge-warning">{{articles.etat}}</span>
-																																																																																																																																																</p> #}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									<span class="font-weight-bolder">Etat :</span>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									<span class="text-muted ml-3 badge badge-warning">{{articles.etat}}</span>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								</p> #}
 								{#<p class="card-text">{{articles.description}}</p>#}
 							</div>
 							<ul class="list-group list-group-flush">
@@ -81,9 +86,9 @@
 						</li>
 					</ul>
 					{# <small>
-																																																																																																																																																																											by :
-																																																																																																																																																																											{{articles.user.nom ?? '' }}
-																																																																																																																																																																											{{articles.user.prenom ?? 'Inconnu'}}</small> #}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																by :
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																{{articles.user.nom ?? '' }}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																{{articles.user.prenom ?? 'Inconnu'}}</small> #}
 					<div class="btn btn-dark text-center">
 						<a href="{{path('user_article_show',{id:articles.id})}}" class="text-info">voir</a>
 
@@ -93,4 +98,32 @@
 			</div>
 		{% endfor %}
 	{% endif %}
-</div></div>{% endblock %}
+</div></div>{% endblock %}{% block javascripts %}<script src="https://unpkg.com/axios/dist/axios.min.js"></script><script>
+
+function addFavoris(event) {
+event.preventDefault(false)
+
+const url = this.href
+const icon = this.querySelector('i');
+console.log(icon);
+
+axios({method: 'get', url: url}).then(function (response) {
+
+
+if (icon.classList.contains('far')) {
+icon.classList.replace('far', 'fas');
+
+
+console.log(response.data);
+} else {
+icon.classList.replace('fas', 'far');
+}
+
+})
+
+
+}
+document.querySelectorAll('a.js-favoris').forEach(function (link) {
+
+link.addEventListener('click', addFavoris);
+});</script>{% endblock %}

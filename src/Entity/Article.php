@@ -2,9 +2,13 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ArticleRepository;
 use DateTime;
+use Laminas\Code\Generator\DocBlock\Tag\ReturnTag;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -91,6 +95,16 @@ class Article
      * @ORM\Column(type="integer", nullable=true)
      */
     private $userArchiveId;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Favoris::class, mappedBy="article")
+     */
+    private $favoris;
+
+    public function __construct()
+    {
+        $this->favoris = new ArrayCollection();
+    }
 
 
 
@@ -280,5 +294,49 @@ class Article
         $this->userArchiveId = $userArchiveId;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Favoris[]
+     */
+    public function getFavoris(): Collection
+    {
+        return $this->favoris;
+    }
+
+    public function addFavori(Favoris $favori): self
+    {
+        if (!$this->favoris->contains($favori)) {
+            $this->favoris[] = $favori;
+            $favori->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavori(Favoris $favori): self
+    {
+        if ($this->favoris->removeElement($favori)) {
+            // set the owning side to null (unless already changed)
+            if ($favori->getArticle() === $this) {
+                $favori->setArticle(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * vérifier les favoris de l'articles
+     *
+     * @param User $user
+     * @return boolean
+     */
+    public function in_favoris(User $user): bool
+    {
+        foreach ($this->favoris as $favorises) {
+            if ($favorises->getUser() == $user) return true;
+        }
+        return false;
     }
 }

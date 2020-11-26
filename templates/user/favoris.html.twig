@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Mes favoris
+{% endblock %}
+{% block body %}
+	{{ include('/user/layouts/menu.html.twig')}}
+	<div class="container">
+
+		{%  for article_favoris in user_favoris %}
+			<p>
+				{{article_favoris.article.titre}}</p>
+
+		{% endfor %}
+
+
+	</div>
+
+{% endblock %}
