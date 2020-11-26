@@ -5,14 +5,33 @@
 {% block body %}
 	{{ include('/user/layouts/menu.html.twig')}}
 	<div class="container">
-
-		{%  for article_favoris in user_favoris %}
-			<p>
-				{{article_favoris.article.titre}}</p>
-
-		{% endfor %}
-
-
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Image</th>
+					<th scope="col">Titre</th>
+					<th scope="col">Prix</th>
+					<th scope="col">Category</th>
+					<th scope="col">Date Ajout aux favoris</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{%  for article_favoris in user_favoris %}
+					<tr>
+						<td>{{article_favoris.id}}</td>
+						<td><img src="{{vich_uploader_asset(article_favoris.article, 'imageFile') }}" style="height:70px;width:70px" class=" card-img-top rounded shadow" alt=" {{article_favoris.article.titre}}"></td>
+						<td>{{article_favoris.article.titre}}</td>
+						<td>{{article_favoris.article.prix | toEuro}}</td>
+						<td>{{article_favoris.article.category}}</td>
+						<td>{{article_favoris.createAt | date('d-m-Y')}}</td>
+						<td>
+							<a href="#" class="btn btn-danger">Retire</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 	</div>
-
 {% endblock %}

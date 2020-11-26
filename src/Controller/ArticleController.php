@@ -65,7 +65,8 @@ class ArticleController extends AbstractController
         if (!$user) {
 
             return  $this->json([
-                'message' => 'unauthorized'
+                'message' => 'unauthorized',
+                'user' => $user
             ], 403);
         }
 
@@ -94,6 +95,7 @@ class ArticleController extends AbstractController
             return $this->json([
                 'code' => 200,
                 'message' => "article a été des  favoris",
+
 
             ], 200);
         }
