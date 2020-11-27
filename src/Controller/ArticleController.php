@@ -6,7 +6,9 @@ use DateTime;
 use App\Entity\Article;
 use App\Entity\Favoris;
 use App\Form\ArticleType;
+use App\HelperFunctions\Functions;
 use App\Repository\UserRepository;
+use Symfony\Component\Finder\Finder;
 use App\Repository\ArticleRepository;
 use App\Repository\FavorisRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,15 +18,15 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
 class ArticleController extends AbstractController
 {
     /**
      * @Route("/", name="article_accueil")
      */
-    public function index(ArticleRepository $ArticleRipo): Response
+    public function index(ArticleRepository $ArticleRipo, Functions $func): Response
     {
-        // dump($ArticleRipo->findLastArticle());
-        // exit();
+
         return $this->render('article/index.html.twig', [
             'article_accueil' => $article =  $ArticleRipo->findArticleNotDelete(),
             // 'lastArticle' => $ArticleRipo->findLastArticle()[0]
