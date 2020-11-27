@@ -30,8 +30,20 @@ class ArticleRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('a')
             ->andWhere('a.user is not null')
-
             ->orderBy('a.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+    /**
+     * @return Article[] Returns an array of Article objects
+     */
+
+    public function findLastArticle()
+    {
+        return $this->createQueryBuilder('k')
+            ->andWhere('k.category is not null')
+            ->orderBy('k.id', 'DESC')
+            ->setMaxResults(3)
             ->getQuery()
             ->getResult();
     }

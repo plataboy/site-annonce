@@ -23,8 +23,11 @@ class ArticleController extends AbstractController
      */
     public function index(ArticleRepository $ArticleRipo): Response
     {
+        // dump($ArticleRipo->findLastArticle());
+        // exit();
         return $this->render('article/index.html.twig', [
-            'article_accueil' => $article =  $ArticleRipo->findArticleNotDelete()
+            'article_accueil' => $article =  $ArticleRipo->findArticleNotDelete(),
+            // 'lastArticle' => $ArticleRipo->findLastArticle()[0]
         ]);
     }
     /**
@@ -66,7 +69,7 @@ class ArticleController extends AbstractController
 
             return  $this->json([
                 'message' => 'unauthorized',
-                'user' => $user
+                'user' => $user == null
             ], 403);
         }
 
@@ -94,7 +97,7 @@ class ArticleController extends AbstractController
             $em->flush();
             return $this->json([
                 'code' => 200,
-                'message' => "article a été des  favoris",
+                'message' => "article a été  rétiré du  favoris",
 
 
             ], 200);

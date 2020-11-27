@@ -20,14 +20,14 @@
 			<tbody>
 				{%  for article_favoris in user_favoris %}
 					<tr>
-						<td>{{article_favoris.id}}</td>
+						<td>{{article_favoris.article.id}}</td>
 						<td><img src="{{vich_uploader_asset(article_favoris.article, 'imageFile') }}" style="height:70px;width:70px" class=" card-img-top rounded shadow" alt=" {{article_favoris.article.titre}}"></td>
 						<td>{{article_favoris.article.titre}}</td>
 						<td>{{article_favoris.article.prix | toEuro}}</td>
 						<td>{{article_favoris.article.category}}</td>
 						<td>{{article_favoris.createAt | date('d-m-Y')}}</td>
 						<td>
-							<a href="#" class="btn btn-danger">Retire</a>
+							<a href="{{path('ajout_favoris',{id:article_favoris.article.id})}}" class=" btn btn-danger">Retire</a>
 						</td>
 					</tr>
 				{% endfor %}

@@ -23,3 +23,44 @@
     margin-left: 50px;
     font-size: 15px;
 }
+
+.side-bar {
+    position: relative;
+    background-color:black;
+   // float: right;
+    left: 70em;
+    height: auto;
+    width: 200px;
+    background-color:	#ffff;
+     right:-200px ;
+     top: -197em;
+     z-index: 2;
+     border-radius: 10%;
+     padding: 10px;
+     overflow: hidden;
+    
+   
+}
+
+.side-move  {
+    overflow: hidden;
+    background-color:white;
+    margin-top: 100px;
+    animation-duration: 10s;
+    animation-name: slidein;
+    animation-iteration-count: infinite;
+  }
+  
+  @keyframes slidein {
+    from {
+      margin-top: -10px;
+     
+    }
+  
+    to {
+      margin-bottom: 100%;
+      
+    }
+  }
+
+
