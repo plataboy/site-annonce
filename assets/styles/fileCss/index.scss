@@ -1,5 +1,7 @@
 
-@import "node_modules/bootstrap/scss/bootstrap";
+ @import "node_modules/bootstrap/scss/bootstrap";
+
+
 .card-img-top{
 
     height: 150px;
@@ -27,40 +29,53 @@
 .side-bar {
     position: relative;
     background-color:black;
-   // float: right;
-    left: 70em;
-    height: auto;
+    float: right;
+    //left: 70em;
+    height:460px;
     width: 200px;
     background-color:	#ffff;
      right:-200px ;
-     top: -197em;
+     top: -172em;
      z-index: 2;
      border-radius: 10%;
      padding: 10px;
      overflow: hidden;
-    
-   
+
+     h6{
+       margin-top: 0;
+       position: relative;
+       top:-10px;
+       width: auto;
+     }
+  
+     
 }
 
 .side-move  {
-    overflow: hidden;
-    background-color:white;
-    margin-top: 100px;
-    animation-duration: 10s;
+  .zIndex{
+    z-index: -1;
+  }
+  z-index: -1;
+
+    
+   // margin-top:100px;
+    animation-duration: 25s;
     animation-name: slidein;
     animation-iteration-count: infinite;
   }
   
   @keyframes slidein {
     from {
-      margin-top: -10px;
-     
+        margin-top: -400px;
     }
   
     to {
-      margin-bottom: 100%;
+    
+       margin-top:300px;
+   
       
     }
-  }
 
+    
+  }
 
