@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Super admin
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid" style="font-size:13px">
+		<table class="table table-striped ">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Image</th>
+					<th scope="col">Category</th>
+					<th scope="col">Marque</th>
+					<th scope="col">Titre</th>
+					<th scope="col">Description</th>
+					<th scope="col">Prix</th>
+					<th scope="col">Etat</th>
+					<th scope="col">Carburant</th>
+					<th scope="col">Email</th>
+					<th scope="col">Création</th>
+					<th scope="col">Update</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for articles_admin in article_admin %}
+					<tr>
+						<td><img src="{{vich_uploader_asset(articles_admin, 'imageFile') }}" style="height:40px;width:40px" class=" card-img-top rounded shadow" alt=" {{articles_admin.titre}}"></td>
+						<td>{{articles_admin.id}}</td>
+						<td>{{articles_admin.category}}</td>
+						<td>{{articles_admin.marque}}</td>
+						<td>{{articles_admin.titre}}</td>
+						<td>{{articles_admin.description | slice(0,100)}}</td>
+						<td>{{articles_admin.Prix| toEuro}}</td>
+						<td>{{articles_admin.etat}}</td>
+						<td>{{articles_admin.carburant}}</td>
+						<td>email</td>
+						<td>{{articles_admin.updateAt | date('d-m-Y')}}
+							{{articles_admin.updateAt | date('H:i')}}</td>
+						<td>{{articles_admin.createAt | date('d-m-Y')}}
+							{{articles_admin.createAt | date('H:i')}}</td>
+
+
+					</tr>
+				{% endfor %}
+			</tbody>
+		</tbody>
+	</table>
+</div>{% endblock %}

@@ -24,6 +24,7 @@ function addFavoris(event) {
         } else {
             icon.classList.replace('fas', 'far');
 
+
         }
 
     })
