@@ -21,6 +21,10 @@ function addFavoris(event) {
 
             console.log(response);
 
+        } else if (icon.classList.contains('far') && response.data.in_favoris !== true) {
+
+            alert('Veuillez vous commecter pour Ajouter aux favoris !');
+            icon.classList.replace('far', 'far')
         } else {
             icon.classList.replace('fas', 'far');
 

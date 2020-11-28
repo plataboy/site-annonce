@@ -71,7 +71,8 @@ class ArticleController extends AbstractController
 
             return  $this->json([
                 'message' => 'unauthorized',
-                'user' => $user == null
+                'user' => $user == null,
+                'in_favoris' => false
             ], 403);
         }
 
