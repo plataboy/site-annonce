@@ -82,7 +82,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/registre" ,name="user_registre" ,methods="POST")
+     * @Route("/registre" ,name="user_registre" )
      */
     public function registre(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {

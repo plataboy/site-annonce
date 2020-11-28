@@ -8,10 +8,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\HasLifecycleCallbacks()
+ *  @UniqueEntity("email",message="cet Email existe déja !")
  */
 class User implements UserInterface
 {
@@ -24,21 +27,36 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex("/[a-zA-Z]{0-9}/",message="Le nom ne doit pas comporter des nombres !")
+     * @Assert\Length(
+     *         min = 2,
+     *         max = 40 ,
+     *         minMessage = "Votre nom est trop court " ,
+     *         maxMessage = "Votre nom trop long ",
+     *         allowEmptyString = false)
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex("/[a-zA-Z]{0-9}/",message="Le nom ne doit pas comporter des nombres !")
+     *   min = 2,
+     *         max = 40 ,
+     *         minMessage = "votre prénom {min} trop court " ,
+     *         maxMessage = "votre prénom trop long ",
+     *         allowEmptyString = false)
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Assert\Date
      */
     private $naissance;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email
      */
     private $email;
 
@@ -49,6 +67,10 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *         min = 2,
+     *         minMessage = "Votre nom est trop court " ,
+     *         allowEmptyString = false)
      */
     private $password;
 
