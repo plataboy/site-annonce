@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Entity\User;
 use App\Entity\Article;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -47,6 +49,23 @@ class ArticleRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function find_paginator_article(PaginatorInterface $paginator, Request $request, EntityManagerInterface $em)
+    {
+
+        $dql   = "SELECT a FROM App\Entity\Article a ORDER BY a.id DESC";
+        $query = $em->createQuery($dql);
+
+        return  $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            16/*limit per page*/
+        );
+    }
+
+
+
+
     /**
      * @return User[] Returns an array of User objects
      */

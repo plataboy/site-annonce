@@ -1,3 +1,4 @@
+
 {% extends "base.html.twig" %}
 
 {% block title%}Dashbord
@@ -30,6 +31,7 @@
 					<input type="hidden" name="token" value="{{csrf_token('search_article')}}">
 					<button class="btn btn-danger">Recherche</button>
 				</div>
+
 
 			</form>
 
@@ -85,10 +87,7 @@
 				</div>
 				<div class="col-6"></div>
 			</div>
-
-
 		{% endfor %}
-
 	</div>
 {% endblock %}
 {% block javascripts %}{% endblock %}

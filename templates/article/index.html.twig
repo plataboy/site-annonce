@@ -5,120 +5,120 @@
 
 {% block body %}
 	{{ include('/user/layouts/menu.html.twig')}}
-	<div class="container">
-		<h1 class="text-center text-primary">Les Annonces disponibles</h1>
-		<hr>
-		<div class="row">
-			<div class="col-6">
-				<a href="{{path('add_article')}}" class="btn btn-primary">Déposez une annonce</a>
-			</div>
-			<div class="col-6">
-				<p>{{ article_accueil | length > 1 ? "Articles Disponibles" : "Article Disponible" }}
-					:
-					<span class="badge badge-danger p-2">
-						{{article_accueil | length == 0 ?  0 : article_accueil | length }}</span>
-				</p>
-			</div>
-		</div>
-
-
-		<hr>
-		{% if article_accueil is empty %}
-			<h5 class="text-center text-danger">Revenez plutard pas d'article disponible</h5>
-		{% else %}
-			<div class='row'>
-				{% for articles in article_accueil %}
-					<div class="col-3">
-
-						<div class="card " id="card-article-accueil">
-							<span class="text-muted badge badge-warning">{{articles.etat}}</span>
-							<h5 class="card-header text-center">
-								<span class="text-muted">
-									<a href="{{path('user_article_show',{id:articles.id})}}" class="text-info">{{articles.category}}</a>
-								</span>
-								<span class="span-i">
-
-									<a href="{{path('ajout_favoris',{id:articles.id})}}" class="js-favoris">
-										{% if app.user and articles.in_favoris(app.user) %}
-											<i class="fas fa-heart" id="coeur_ajoute"></i>
-										{% else %}
-											<i class="far fa-heart"></i>
-										{% endif %}
-									</a>
-								</span>
-							</h5>
-							<img src="{{vich_uploader_asset(articles, 'imageFile') }}" class=" card-img-top rounded shadow" alt=" {{articles.titre}}">
-
-							<div
-								class="card-body">
-								{# <p class="card-title">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																<span class="font-weight-bolder">Marque :</span>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																<span class="text-muted ml-3">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																{{articles.marque | subCaractere(0,19) }}</span>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																</p> #}
-								<p class="card-title">
-									<span class="font-weight-bolder">Titre :</span>
-									<span class="text-muted ">
-										{{articles.titre | subCaractere(0,19)}}</span>
-								</p>
-								{# <p class="card-title ">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									<span class="font-weight-bolder">Etat :</span>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									<span class="text-muted ml-3 badge badge-warning">{{articles.etat}}</span>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								</p> #}
-								{#<p class="card-text">{{articles.description}}</p>#}
-							</div>
-							<ul class="list-group list-group-flush">
-								<li class="list-group-item ">
-									<span class="font-weight-bolder">Prix :</span>
-									<span class="text-success h6 font-weight-bolder">{{ articles.prix|toEuro}}</span>
-								</li>
-								<li class="list-group-item ">
-									<span class="font-weight-bolder">Ville:</span>
-									<span class="text-success h6 font-weight-bolder">{{ articles.user.ville ?? 'Toulouse'}}</span>
-								</li>
-								<li class="list-group-item">
-									<span class="font-weight-bolder">Posted :</span>
-									<small class="text-muted">
-										{{articles.createAt | date('d-m-Y') == "now" | date('d-m-Y') ? "Aujourd'hui" : articles.createAt | date('d-m-Y')}}
-										<span class="text-danger ml-4">{{articles.createAt | date('H:i')}}</span>
-									</li>
-								</li>
-
-							</small>
-						</li>
-					</ul>
-					{# <small>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										by :
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										{{articles.user.nom ?? '' }}
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										{{articles.user.prenom ?? 'Inconnu'}}</small> #}
-					<div class="btn btn-dark text-center">
-						<a href="{{path('user_article_show',{id:articles.id})}}" class="text-info">voir</a>
-
+	<!-- start div container -->
+	<div class="row">
+		<div class="col-11">
+			<div class="container">
+				<h1 class="text-center text-primary">Les Annonces disponibles</h1>
+				<hr>
+				<div class="row">
+					<div class="col-6">
+						<a href="{{path('add_article')}}" class="btn btn-primary">Déposez une annonce</a>
+					</div>
+					<div class="col-6">
+						<p>{{ article_accueil | length > 1 ? "Articles Disponibles" : "Article Disponible" }}
+							:
+							<span class="badge badge-danger p-2">
+								{{article_accueil | length == 0 ?  0 : article_accueil | length }}</span>
+						</p>
 					</div>
 				</div>
+				<hr>
+				{% if article_accueil is empty %}
+					<h5 class="text-center text-danger">Revenez plutard pas d'article disponible</h5>
+				{% else %}
+					<div class='row'>
+						{% for articles in article_accueil  %}
+							<div class="col-3">
+								<div class="card" id="card-article-accueil">
+									<span class="text-muted badge badge-warning">{{articles.etat}}</span>
+									<h5 class="card-header text-center">
+										<span class="text-muted">
+											<a href="{{path('user_article_show',{id:articles.id})}}" class="text-info">{{articles.category.name}}</a>
+										</span>
+										<span class="span-i">
 
-			</div>
-		{% endfor %}
-	{% endif %}
-</div>
-<!-- side bar -->
-<div class="side-bar">
-	<h6 class="text-center bg-dark text-white rounded p-2">dernières annonces de votre ville</h6>
-	<div class="side-move">
-		{% for lastArticles in article_accueil | slice(0, 5)%}
-			<div class="row shadow ">
-				<div class="col-5 zIndex">
-					<img src="{{vich_uploader_asset(lastArticles, 'imageFile') }}" style="height:80px;width:70px" class=" card-img-top rounded shadow zIndex" alt=" {{lastArticles.titre}}">
+											<a href="{{path('ajout_favoris',{id:articles.id})}}" class="js-favoris">
+												{% if app.user and articles.in_favoris(app.user) %}
+													<i class="fas fa-heart" id="coeur_ajoute"></i>
+												{% else %}
+													<i class="far fa-heart"></i>
+												{% endif %}
+											</a>
+										</span>
+									</h5>
+									<img src="{{vich_uploader_asset(articles, 'imageFile') }}" class=" card-img-top rounded shadow" alt=" {{articles.titre}}">
+
+									<div class="card-body">
+										<p class="card-title">
+											<span class="font-weight-bolder">Titre :</span>
+											<span class="text-muted ">
+												{{articles.titre | subCaractere(0,19)}}</span>
+										</p>
+									</div>
+									<ul class="list-group list-group-flush">
+										<li class="list-group-item ">
+											<span class="font-weight-bolder">Prix :</span>
+											<span class="text-success h6 font-weight-bolder">{{ articles.prix|toEuro}}</span>
+										</li>
+										<li class="list-group-item ">
+											<span class="font-weight-bolder">Ville:</span>
+											<span class="text-success h6 font-weight-bolder">{{ articles.user.ville ?? 'Toulouse'}}</span>
+										</li>
+										<li class="list-group-item">
+											<span class="font-weight-bolder">Posted :</span>
+											<small class="text-muted">
+												{{articles.createAt | date('d-m-Y') == "now" | date('d-m-Y') ? "Aujourd'hui" : articles.createAt | date('d-m-Y')}}
+												<span class="text-danger ml-4">{{articles.createAt | date('H:i')}}</span>
+											</small>
+										</li>
+									</ul>
+									<a href="{{path('user_article_show',{id:articles.id})}}" class="btn btn-dark text-info">
+										voir
+									</a>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				{% endif %}
+				<div class="navigation mt-4">
+					{{ knp_pagination_render(article_accueil) }}
 				</div>
-				<div class="col-7 zIndex">
-					<p class="zIndex">
-						<a class="zIndex" href="{{path('user_article_show',{id:lastArticles.id})}}">{{lastArticles.titre}}</a>
-					</p>
-					<p class="text-danger font-weight-bolder zIndex">
-						{{lastArticles.prix | toEuro}}</p>
+			</div>
+			<!-- End div container -->
+
+		</div>
+		<!-- end div-class=11 -->
+
+		<!-- side bar -->
+		<div class="col-1">
+			<div class="side-bar">
+				<h6 class="text-center bg-dark text-white rounded p-2">dernières annonces de votre ville</h6>
+				<div class="side-move">
+					{% for lastArticles in lastArticle | slice(0, 5) %}
+						<div class="row shadow ">
+							<div class="col-5 zIndex">
+								<img src="{{vich_uploader_asset(lastArticles, 'imageFile') }}" style="height:80px;width:70px" class=" card-img-top rounded shadow zIndex" alt=" {{lastArticles.titre}}">
+							</div>
+							<div class="col-7 zIndex">
+								<p class="zIndex">
+									<a class="zIndex" href="{{path('user_article_show',{id:lastArticles.id})}}">{{lastArticles.titre}}</a>
+								</p>
+								<p class="text-danger font-weight-bolder zIndex">
+									{{lastArticles.prix | toEuro}}</p>
+							</div>
+						</div>
+					{% endfor %}
 				</div>
 			</div>
-		{% endfor %}
+
+			<!-- End Side bar-->
+		</div>
+		<!-- end div-class="col-1" -->
 	</div>
-</div>
-<!-- End Side bar--></div>{% endblock %}{% block javascripts %}{{ encore_entry_script_tags('indexJS') }}{% endblock %}
+	<!-- end row -->
+
+{% endblock %}
+{% block javascripts %}
+	{{ encore_entry_script_tags('indexJS') }}
+{% endblock %}

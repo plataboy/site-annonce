@@ -20,10 +20,15 @@
 					<th scope="col">Email</th>
 					<th scope="col">Création</th>
 					<th scope="col">Update</th>
+					<th scope="col">Delete</th>
+					<th scope="col">edit</th>
 				</tr>
 			</thead>
 			<tbody>
+
+
 				{% for articles_admin in article_admin %}
+
 					<tr>
 						<td><img src="{{vich_uploader_asset(articles_admin, 'imageFile') }}" style="height:40px;width:40px" class=" card-img-top rounded shadow" alt=" {{articles_admin.titre}}"></td>
 						<td>{{articles_admin.id}}</td>
@@ -39,6 +44,17 @@
 							{{articles_admin.updateAt | date('H:i')}}</td>
 						<td>{{articles_admin.createAt | date('d-m-Y')}}
 							{{articles_admin.createAt | date('H:i')}}</td>
+						<td>
+							<form method="post" action="{{path('delete_admin_article',{id:articles_admin.id})}}">
+								<input type="hidden" name="_method" value="DELETE">
+								<input type="hidden" name="token" value="{{csrf_token('admin_delete_article')}}">
+
+								<button class="btn btn-danger" type="submit">Delete</button>
+							</form>
+						</td>
+						<td>
+							<a class="btn btn-warning">Edite</a>
+						</td>
 
 
 					</tr>

@@ -11,6 +11,7 @@ use Laminas\Code\Generator\DocBlock\Tag\ReturnTag;
 use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=App\Repository\ArticleRepository::class)
@@ -26,13 +27,10 @@ class Article
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $category;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $marque;
 
@@ -101,31 +99,21 @@ class Article
      */
     private $favoris;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="articles")
+     */
+    private $category;
+
+
+
     public function __construct()
     {
         $this->favoris = new ArrayCollection();
     }
 
-
-
-
-
-
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCategory(): ?string
-    {
-        return $this->category;
-    }
-
-    public function setCategory(string $category): self
-    {
-        $this->category = $category;
-
-        return $this;
     }
 
     public function getMarque(): ?string
@@ -338,5 +326,17 @@ class Article
             if ($favorises->getUser() == $user) return true;
         }
         return false;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
     }
 }

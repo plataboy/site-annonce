@@ -3,7 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Article;
-
+use App\Entity\Category;
+use Doctrine\ORM\Mapping\Entity;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
@@ -16,18 +18,9 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('category', ChoiceType::class, [
-                'choices' => [
-                    'Vehicules' => 'vehicules',
-                    'Multimedia' => 'Multimedia',
-                    'Meuble' => 'Meuble',
-                    'Immobilier' => 'Immmoblier',
-                    'Mode' => 'Mode',
-                    'Service' => 'Service',
-                    'Loisirs' => 'Loisirs',
-                    'Divers' => 'Divers',
-
-                ]
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'name',
             ])
             ->add('marque', TextType::class)
             ->add('carburant', ChoiceType::class, [

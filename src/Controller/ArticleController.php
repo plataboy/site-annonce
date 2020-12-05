@@ -12,6 +12,7 @@ use Symfony\Component\Finder\Finder;
 use App\Repository\ArticleRepository;
 use App\Repository\FavorisRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,12 +25,13 @@ class ArticleController extends AbstractController
     /**
      * @Route("/", name="article_accueil")
      */
-    public function index(ArticleRepository $ArticleRipo, Functions $func): Response
+    public function index(PaginatorInterface $paginator, Request $request,  ArticleRepository $articleRipo, EntityManagerInterface $em): Response
     {
+        $paginator_article = $articleRipo->find_paginator_article($paginator, $request, $em);
 
         return $this->render('article/index.html.twig', [
-            'article_accueil' => $article =  $ArticleRipo->findArticleNotDelete(),
-            // 'lastArticle' => $ArticleRipo->findLastArticle()[0]
+            'article_accueil' => $paginator_article,
+            'lastArticle' => $articleRipo->findArticleNotDelete()
         ]);
     }
     /**
