@@ -80,3 +80,58 @@
     
   }
 
+
+  //zone de recherche
+
+  .zone_recherche{
+    
+    border-radius: 10px;
+    //background-color:  		#BDB76B; // #5cd6d6;
+    margin-top: 50px;
+    padding-left:150px;
+    
+ 
+
+   
+    
+
+    #recherche{
+      width: 400px;
+    }
+    #ville{
+      width: 300px;
+    }
+    button{
+      margin-bottom: 20px;
+    }
+   
+    
+    #result_ville{
+      display:none;
+      position: absolute;
+      cursor: pointer;
+       width:300px;
+       height:auto;
+       background-color:white;
+       box-shadow: 2px 2px lightgrey;
+       border: 2px solid lightgrey;
+       overflow:auto;
+       z-index: 1;
+      ul li{
+       
+        padding:10px;
+         
+        z-index: 1;
+
+       }
+
+     ul li:hover{
+         background-color:	 #b3e6ff;
+       }
+    }
+  }
+
+  //input ville value
+
+
+

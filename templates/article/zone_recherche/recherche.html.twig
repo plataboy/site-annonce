@@ -1,0 +1,34 @@
+<form method="post">
+
+	<div class="zone_recherche border">
+		<h2 class="text-center mb-5">Recherche</h2>
+		<fieldset>
+			<legend class="h6">Choisissez votre Category</legend>
+			<div class="form-group">
+				<select id="select_category" class="custom-select w-50 form-control">
+
+					<option>Voiture</option>
+				</select>
+			</div>
+		</fieldset>
+		<div class="row">
+			<div class="col-6">
+				<div class="form-group">
+
+					<label for="recherche">Recherche
+					</label>
+					<input id="recherche" class="form-control" type="text" name="recherche-index" placeholder="Recherche annonce">
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="form-group">
+					<label for="ville">Où ?
+					</label>
+					<input id="ville" class="form-control" type="text" placeholder="Recherche par ville" autocomplete="off">
+					<div id="result_ville"></div>
+				</div>
+			</div>
+		</div>
+		<button class="btn btn-primary">Recherche</button>
+	</div>
+</form>

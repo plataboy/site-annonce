@@ -29,8 +29,10 @@ class Article
 
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
+     * @todo Make this nonblank only if $category is Vehicule.
+     * 
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message=" Ce champs ne doit pas etre vide !")
      */
     private $marque;
 
@@ -80,7 +82,7 @@ class Article
     private $etat;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $carburant;
 
@@ -100,6 +102,7 @@ class Article
     private $favoris;
 
     /**
+     * 
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="articles")
      */
     private $category;

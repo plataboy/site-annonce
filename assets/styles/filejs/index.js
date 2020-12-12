@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import $, { ajax } from 'jquery';
 
 
 document.querySelectorAll('a.js-favoris').forEach(function (link) {
@@ -32,15 +32,57 @@ function addFavoris(event) {
         } else {
             icon.classList.replace('fas', 'far');
             location.reload()
+        }
+    })
+}
 
+
+// zone de recherche page d'accueil
+
+
+$("#ville").keyup(function () {
+    var ville = document.querySelector("#ville").value;
+
+    $.ajax({
+        url: "/article",
+        data: {
+            'ville_input': ville
+        },
+        success: function (result) {
+            if (ville !== "") {
+
+                $("#result_ville").show().html(result['ville']);
+                $("#result_ville ul li").click(function () {
+
+                    $("#ville").val($(this).text());
+                    $("#result_ville").css("display", "none");
+                })
+
+            } else {
+
+                $("#result_ville").css("display", "none").html("");
+
+            }
+
+
+
+            console.log(result['ville'].indexOf(ville));
 
 
         }
-
     })
 
 
-}
+})
+
+
+
+
+
+
+
+
+
 
 
 

@@ -53,7 +53,7 @@ class ArticleRepository extends ServiceEntityRepository
     public function find_paginator_article(PaginatorInterface $paginator, Request $request, EntityManagerInterface $em)
     {
 
-        $dql   = "SELECT a FROM App\Entity\Article a ORDER BY a.id DESC";
+        $dql   = "SELECT a FROM App\Entity\Article a WHERE a.user IS NOT NULL ORDER BY a.id DESC";
         $query = $em->createQuery($dql);
 
         return  $paginator->paginate(

@@ -6,10 +6,16 @@
 {% block body %}
 	{{ include('/user/layouts/menu.html.twig')}}
 	<!-- start div container -->
+
 	<div class="row">
 		<div class="col-11">
 			<div class="container">
-				<h1 class="text-center text-primary">Les Annonces disponibles</h1>
+
+				<form method="post" }}>
+					{{include('/article/zone_recherche/recherche.html.twig')}}
+
+				</form>
+				<h6 class="text-center text-primary">Les Annonces Disponibles</h6>
 				<hr>
 				<div class="row">
 					<div class="col-6">
@@ -91,29 +97,8 @@
 		<!-- end div-class=11 -->
 
 		<!-- side bar -->
-		<div class="col-1">
-			<div class="side-bar">
-				<h6 class="text-center bg-dark text-white rounded p-2">dernières annonces de votre ville</h6>
-				<div class="side-move">
-					{% for lastArticles in lastArticle | slice(0, 5) %}
-						<div class="row shadow ">
-							<div class="col-5 zIndex">
-								<img src="{{vich_uploader_asset(lastArticles, 'imageFile') }}" style="height:80px;width:70px" class=" card-img-top rounded shadow zIndex" alt=" {{lastArticles.titre}}">
-							</div>
-							<div class="col-7 zIndex">
-								<p class="zIndex">
-									<a class="zIndex" href="{{path('user_article_show',{id:lastArticles.id})}}">{{lastArticles.titre}}</a>
-								</p>
-								<p class="text-danger font-weight-bolder zIndex">
-									{{lastArticles.prix | toEuro}}</p>
-							</div>
-						</div>
-					{% endfor %}
-				</div>
-			</div>
-
-			<!-- End Side bar-->
-		</div>
+		{{include('/article/zone_recherche/sidebar.html.twig')}}
+	<!-- End Side bar-->
 		<!-- end div-class="col-1" -->
 	</div>
 	<!-- end row -->
@@ -121,4 +106,5 @@
 {% endblock %}
 {% block javascripts %}
 	{{ encore_entry_script_tags('indexJS') }}
+
 {% endblock %}

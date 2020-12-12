@@ -27,7 +27,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Regex("/[a-zA-Z]{0-9}/",message="Le nom ne doit pas comporter des nombres !")
+     * @Assert\Regex("/^[a-zA-Z]+$/",message="Le nom ne doit pas comporter des nombres !")
      * @Assert\Length(
      *         min = 2,
      *         max = 40 ,
@@ -39,7 +39,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Regex("/[a-zA-Z]{0-9}/",message="Le nom ne doit pas comporter des nombres !")
+     * @Assert\Regex("/^[a-zA-Z]+$/",message="Le nom ne doit pas comporter des nombres !")
      *   min = 2,
      *         max = 40 ,
      *         minMessage = "votre prénom {min} trop court " ,

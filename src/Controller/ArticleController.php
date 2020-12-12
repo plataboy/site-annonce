@@ -8,6 +8,7 @@ use App\Entity\Favoris;
 use App\Form\ArticleType;
 use App\HelperFunctions\Functions;
 use App\Repository\UserRepository;
+use App\Repository\VilleRepository;
 use Symfony\Component\Finder\Finder;
 use App\Repository\ArticleRepository;
 use App\Repository\FavorisRepository;
@@ -45,9 +46,9 @@ class ArticleController extends AbstractController
         }
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            //   if($form->getData())
             $article->setUser($user);
             $manager->persist($article);
             $manager->flush();
@@ -127,5 +128,32 @@ class ArticleController extends AbstractController
         return $this->render("user/favoris.html.twig", [
             'user_favoris' => $getFavoris
         ]);
+    }
+
+    /**
+     * @Route("/article", name="recherche_article")
+     */
+
+    public function recherche(VilleRepository $villeRepository, Request $request)
+    {
+
+        // if ($this->isCsrfTokenValid('search_article', $request->request->get('token'))) {
+
+        $article_recherche = $villeRepository->zone_de_recherhe($_REQUEST["ville_input"]);
+        foreach ($article_recherche as $dataTesult) {
+            $ville[] = '<ul><li>' . $dataTesult->getName() . '(' . $dataTesult->getCodeVille() . ')</li></ul>';
+        }
+
+        return $this->json([
+            'ville' => $ville,
+            //'post' => $_REQUEST["ville_input"] ?? 0,
+
+        ], 200);
+
+
+
+        // return $this->render("article/index.html.twig", [
+        //     //   'user_article' => $article_recherche ?? null
+        // ]);
     }
 }
