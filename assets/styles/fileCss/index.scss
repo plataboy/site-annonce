@@ -2,54 +2,53 @@
  @import "node_modules/bootstrap/scss/bootstrap";
 
 
-.card-img-top{
 
-    height: 150px;
-    width:240px;
+
+.card-img-top{
+  height: 150px;
+  width:240px;
 }
 
 #card-article-accueil{
 
-    margin-top: 10px;
-    width: 15em;
-    height: 25em;
-    margin-bottom: 39px;
-    
-    &:hover{
-        transform: scale(1.02,1.02) ;
-        transition:0.3s;
-        z-index: 1;
-    }
+  margin-top: 10px;
+  width: 15em;
+  height: 25em;
+  margin-bottom: 39px;
+  
+  &:hover{
+      transform: scale(1.02,1.02) ;
+      transition:0.3s;
+      z-index: 1;
+  }
 }
 .span-i{
-    margin-left: 50px;
-    font-size: 15px;
+  margin-left: 50px;
+  font-size: 15px;
 }
 
 .side-bar {
-    position: relative;
-   
-    background-color:black;
-    float: right;
-    //left: 70em;
-    height:460px;
-    width: 200px;
-    background-color:	#ffff;
-     right:40px ;
-     top: 50px;
-     z-index: 2;
-     border-radius: 10%;
-     padding: 10px;
-     overflow: hidden;
-
-     h6{
-       margin-top: 0;
-       position: relative;
-       top:-10px;
-       width:auto;
-     }
+  position: relative;
   
-     
+  background-color:black;
+  float: right;
+  //left: 70em;
+  height:460px;
+  width: 200px;
+  background-color:	#ffff;
+  right:40px ;
+  top: 50px;
+  z-index: 2;
+  border-radius: 10%;
+  padding: 10px;
+  overflow: hidden;
+
+  h6{
+    margin-top: 0;
+    position: relative;
+    top:-10px;
+    width:auto;
+  }  
 }
 
 .side-move  {
@@ -57,81 +56,72 @@
     z-index: -1;
   }
   z-index: -1;
-
-    
-   // margin-top:100px;
-    animation-duration: 30s;
-    animation-name: slidein;
-    animation-iteration-count: infinite;
+  // margin-top:100px;
+  animation-duration: 30s;
+  animation-name: slidein;
+  animation-iteration-count: infinite;
   }
-  
   @keyframes slidein {
     from {
         margin-top: -400px;
     }
-  
     to {
-    
        margin-top:300px;
-   
-      
     }
-
-    
   }
 
 
   //zone de recherche
 
   .zone_recherche{
-    
     border-radius: 10px;
     //background-color:  		#BDB76B; // #5cd6d6;
     margin-top: 50px;
     padding-left:150px;
-    
- 
-
-   
-    
-
     #recherche{
-      width: 400px;
+      width: 300px;
+    }
+    #select_category{
+      width:300px;
     }
     #ville{
       width: 300px;
     }
     button{
       margin-bottom: 20px;
+      background-color:#E5FB07;
+      color:black;
     }
-   
-    
     #result_ville{
       display:none;
       position: absolute;
       cursor: pointer;
-       width:300px;
-       height:auto;
-       background-color:white;
-       box-shadow: 2px 2px lightgrey;
-       border: 2px solid lightgrey;
-       overflow:auto;
-       z-index: 1;
+      width:300px;
+      height:auto;
+      background-color:white;
+      box-shadow: 2px 2px lightgrey;
+      border: 2px solid lightgrey;
+      overflow:auto;
+      z-index: 1;
       ul li{
-       
         padding:10px;
-         
         z-index: 1;
-
-       }
-
-     ul li:hover{
-         background-color:	 #b3e6ff;
+      }
+      ul li:hover{
+         background-color:	#fee6e6;
        }
     }
+
+    
   }
 
-  //input ville value
+// cities area recherche
+.cities_area{
+
+  border-left: 1px outset gray;
+}
+
+ 
 
 
 

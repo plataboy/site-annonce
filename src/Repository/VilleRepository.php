@@ -24,11 +24,13 @@ class VilleRepository extends ServiceEntityRepository
      * @return Ville[] Returns an array of Ville objects
      */
 
-    public function zone_de_recherhe($value)
+    public function zone_de_recherhe($value, $departement)
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.name LIKE :article OR u.codeVille LIKE :article')
+            ->andWhere('u.codeDepartement = :departement')
             ->setParameter('article', $value . '%')
+            ->setParameter('departement', $departement)
             ->getQuery()
             ->getResult();
     }

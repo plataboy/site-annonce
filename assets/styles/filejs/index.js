@@ -7,6 +7,93 @@ document.querySelectorAll('a.js-favoris').forEach(function (link) {
 
 });
 
+getDepartement()
+getVille();
+
+
+
+
+
+
+
+
+
+
+
+//  Get Departement
+
+function getDepartement() {
+    $("#select_region").change(function () {
+
+        $.ajax({
+            url: "/departement",
+            success: function (data) {
+                $("#select_region option").prop('selected', function (index, curren) {
+
+                    if (curren) {
+                        var val = $(this).val();
+                        $("#select_departement").html(data['departement'][0]['name'])
+                        for (var i = 0; i < data['departement'].length; i++) {
+                            if (val == data['departement'][i]['codeRegion']) {
+                                //  console.log(data['departement'][i]['codeDepartement']);
+                                $("#select_departement").append("<option value='" + data['departement'][i]['codeDepartement'] + "'>" + data['departement'][i]['name'] + "</option>");
+                                console.log(data['departement'][i]['name']);
+                            }
+                        }
+                    }
+                })
+            },
+        })
+    })
+}
+
+// zone de recherche recherche une ville
+
+
+function getVille() {
+
+    $("#ville").keyup(function () {
+        var ville = document.querySelector("#ville").value;
+        $("#select_departement option").prop('selected', function (index, curren) {
+            if (curren) {
+
+                var codeDepartements = $(this).val();
+
+                $.ajax({
+                    url: "/article",
+                    data: {
+                        'ville_input': ville,
+                        'codeDepartement': codeDepartements
+                    },
+                    success: function (result) {
+
+                        if (ville !== "") {
+
+                            $("#result_ville").show().html(result['ville']);
+                            $("#result_ville ul li").click(function () {
+
+                                $("#ville").val($(this).text());
+                                $("#result_ville").css("display", "none");
+                            })
+
+                        } else {
+
+                            $("#result_ville").css("display", "none").html("");
+
+                        }
+                    }
+                })
+            }
+        })
+    })
+}
+
+
+
+
+
+
+// fonction permet d'ajouter aux favoris
 function addFavoris(event) {
 
     event.preventDefault(false)
@@ -16,15 +103,9 @@ function addFavoris(event) {
 
     axios({ method: 'get', url: url }).then(function (response) {
 
-
         if (icon.classList.contains('far') && response.data.in_favoris == true) {
             icon.classList.replace('far', 'fas');
             location.reload()
-
-
-
-            console.log(response);
-
         } else if (icon.classList.contains('far') && response.data.in_favoris !== true) {
 
             alert('Veuillez vous commecter pour Ajouter aux favoris !');
@@ -35,52 +116,6 @@ function addFavoris(event) {
         }
     })
 }
-
-
-// zone de recherche page d'accueil
-
-
-$("#ville").keyup(function () {
-    var ville = document.querySelector("#ville").value;
-
-    $.ajax({
-        url: "/article",
-        data: {
-            'ville_input': ville
-        },
-        success: function (result) {
-            if (ville !== "") {
-
-                $("#result_ville").show().html(result['ville']);
-                $("#result_ville ul li").click(function () {
-
-                    $("#ville").val($(this).text());
-                    $("#result_ville").css("display", "none");
-                })
-
-            } else {
-
-                $("#result_ville").css("display", "none").html("");
-
-            }
-
-
-
-            console.log(result['ville'].indexOf(ville));
-
-
-        }
-    })
-
-
-})
-
-
-
-
-
-
-
 
 
 

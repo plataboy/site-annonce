@@ -9,9 +9,11 @@ use App\Form\ArticleType;
 use App\HelperFunctions\Functions;
 use App\Repository\UserRepository;
 use App\Repository\VilleRepository;
+use App\Repository\RegionRepository;
 use Symfony\Component\Finder\Finder;
 use App\Repository\ArticleRepository;
 use App\Repository\FavorisRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,10 +31,17 @@ class ArticleController extends AbstractController
     public function index(PaginatorInterface $paginator, Request $request,  ArticleRepository $articleRipo, EntityManagerInterface $em): Response
     {
         $paginator_article = $articleRipo->find_paginator_article($paginator, $request, $em);
+        $category = $this->getDoctrine()->getRepository("App\Entity\Category")->findAll();
+        $region = $this->getDoctrine()->getRepository("App\Entity\Region")->findAll();
+
+
 
         return $this->render('article/index.html.twig', [
             'article_accueil' => $paginator_article,
-            'lastArticle' => $articleRipo->findArticleNotDelete()
+            'lastArticle' => $articleRipo->findArticleNotDelete(),
+            'category' => $category,
+            'region' => $region
+
         ]);
     }
     /**
@@ -139,13 +148,15 @@ class ArticleController extends AbstractController
 
         // if ($this->isCsrfTokenValid('search_article', $request->request->get('token'))) {
 
-        $article_recherche = $villeRepository->zone_de_recherhe($_REQUEST["ville_input"]);
+        $article_recherche = $villeRepository->zone_de_recherhe($_REQUEST["ville_input"], $_REQUEST["codeDepartement"]);
         foreach ($article_recherche as $dataTesult) {
             $ville[] = '<ul><li>' . $dataTesult->getName() . '(' . $dataTesult->getCodeVille() . ')</li></ul>';
+            $departement[] = $dataTesult->getCodeDepartement();
         }
 
         return $this->json([
             'ville' => $ville,
+            'code_departement' =>  $departement,
             //'post' => $_REQUEST["ville_input"] ?? 0,
 
         ], 200);
@@ -155,5 +166,27 @@ class ArticleController extends AbstractController
         // return $this->render("article/index.html.twig", [
         //     //   'user_article' => $article_recherche ?? null
         // ]);
+    }
+
+
+    //region departement ville recherche_article
+    /**
+     * @Route("/departement",name="accueil_departement")
+     */
+
+    public function getviille(RegionRepository $repoRepo)
+    {
+
+        $departements =   $this->getDoctrine()->getRepository("App\Entity\Departement")->findAll();
+
+        foreach ($departements  as $dataDepartement) {
+            $departement[] = $dataDepartement;
+        }
+
+
+
+        return $this->json([
+            'departement' => $departement,
+        ], 200);
     }
 }
