@@ -23,8 +23,14 @@ getVille();
 //  Get Departement
 
 function getDepartement() {
-    $("#select_region").change(function () {
 
+    getDisabledField("#select_departement", true)
+    getDisabledField("#ville", true)
+
+
+    $("#select_region").change(function () {
+        getDisabledField("#select_departement", false)
+        getDisabledField("#ville", false)
         $.ajax({
             url: "/departement",
             success: function (data) {
@@ -58,6 +64,7 @@ function getVille() {
             if (curren) {
 
                 var codeDepartements = $(this).val();
+                var NomDepartements = $(this).text();
 
                 $.ajax({
                     url: "/article",
@@ -90,9 +97,6 @@ function getVille() {
 
 
 
-
-
-
 // fonction permet d'ajouter aux favoris
 function addFavoris(event) {
 
@@ -115,6 +119,13 @@ function addFavoris(event) {
             location.reload()
         }
     })
+}
+
+
+function getDisabledField(selecteur, boolean) {
+
+    $(selecteur).prop('disabled', boolean)
+
 }
 
 
