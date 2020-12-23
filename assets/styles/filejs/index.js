@@ -15,11 +15,6 @@ getVille();
 
 
 
-
-
-
-
-
 //  Get Departement
 
 function getDepartement() {

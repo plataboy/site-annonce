@@ -107,6 +107,11 @@ class Article
      */
     private $category;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $ville;
+
 
 
     public function __construct()
@@ -339,6 +344,26 @@ class Article
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of ville
+     */
+    public function getVille()
+    {
+        return $this->ville;
+    }
+
+    /**
+     * Set the value of ville
+     *
+     * @return  self
+     */
+    public function setVille($ville)
+    {
+        $this->ville = $ville;
 
         return $this;
     }

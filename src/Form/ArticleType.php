@@ -74,7 +74,8 @@ class ArticleType extends AbstractType
                             'Occasion' => 'Occasion',
                             'A réparer' => 'reparer'
                         ]
-                    ]);
+                    ])
+                    ->add('ville', TextType::class);
             };
         });
     }
